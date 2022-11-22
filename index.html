@@ -43,8 +43,10 @@
   <script>
     const $copyBtn = document.querySelector('#copy');
     const $code = document.querySelector('#code');
-    $copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(toCodeblock($code.value));
+    $copyBtn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(toCodeblock($code.value));
+      $copyBtn.textContent = "Copied!";
+      setTimeout(() => $copyBtn.textContent = "Copy", 1500);
     });
 
     function toCodeblock(code) {
