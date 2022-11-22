@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Scrapbox Codeblock Generator</title>
+  <style>
+    #code {
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <textarea id="code"></textarea>
+  <button id="copy">Copy</button>
+  <script>
+    const $copyBtn = document.querySelector('#copy');
+    const $code = document.querySelector('#code');
+    $copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(toCodeblock($code.value));
+    });
+
+    function toCodeblock(code) {
+      return `code:js\n  ${code.replaceAll(/\n/g, '\n  ')}`;
+    }
+  </script>
+</body>
+</html>
