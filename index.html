@@ -23,6 +23,7 @@
       border: none;
       padding-left: 1em;
       background: transparent;
+      resize: vertical;
     }
 
     #code:focus {
@@ -37,13 +38,19 @@
     <div>
       <span class="codeblock-start">javascript</span>
     </div>
-    <textarea cols="60" rows="30" id="code" placeholder="// Paste your code!"></textarea>
+    <textarea cols="60" rows="5" id="code" placeholder="// Paste your code!"></textarea>
   </div>
   <br>
   <button id="copy">Copy</button>
   <script>
-    const $copyBtn = document.querySelector('#copy');
     const $code = document.querySelector('#code');
+    $code.addEventListener('input', () => {
+      const lineNum = $code.value.split('\n').length;
+      const rows = Math.max(5, Math.min(30, lineNum));
+      $code.setAttribute('rows', rows);
+    });
+
+    const $copyBtn = document.querySelector('#copy');
     $copyBtn.addEventListener('click', async () => {
       await navigator.clipboard.writeText(toCodeblock($code.value));
       $copyBtn.textContent = "Copied!";
